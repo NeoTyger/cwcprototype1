@@ -5,10 +5,10 @@ using UnityEngine;
 public class VehicleMovement : MonoBehaviour
 {
 
-    [SerializeField] private float speed = 10f;
+    public float speed = 10f;
 
-    [SerializeField] private float leftRotation = -150;
-    [SerializeField] private float rightRotation = 150;
+    public float leftRotation = -150;
+    public float rightRotation = 150;
     
     // Start is called before the first frame update
     void Start()
