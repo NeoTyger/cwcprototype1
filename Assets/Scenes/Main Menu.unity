@@ -1014,6 +1014,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _btnPlayGame: {fileID: 1415580084}
+  _btnOptions: {fileID: 1547794995}
 --- !u!4 &1753036954
 Transform:
   m_ObjectHideFlags: 0
