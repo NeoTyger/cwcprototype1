@@ -18,12 +18,15 @@ public class GameManager : MonoBehaviour
     private int sceneLevel = 0;
     private bool youWin = false;
     private int ptsCount = 0;
-    
+
     [SerializeField] private TextMeshProUGUI _txtPoints;
     [SerializeField] private TextMeshProUGUI _txtWinner;
     [SerializeField] private Button _btnOk;
     [SerializeField] private GameObject _player;
     [SerializeField] private Slider _lifebar;
+
+    private List<GameObject> _enemies;
+    private List<GameObject> _obstacles;
 
     private void Awake()
     {
@@ -39,9 +42,12 @@ public class GameManager : MonoBehaviour
     }
     
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         StartLevel();
+        
+        _enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
+        _obstacles = new List<GameObject>(GameObject.FindGameObjectsWithTag("Obstacle"));
     }
 
     private void StartLevel()
@@ -122,9 +128,23 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    public void AddPoints()
+    public void TargetHitAddPoints(GameObject gameObj)
     {
-        ptsCount++;
-        _txtPoints.text = "Pts: " + ptsCount * 10;
+        if (_enemies.Contains(gameObj) )
+        {
+            ptsCount += 10;
+            _txtPoints.text = "Pts: " + ptsCount;
+            _enemies.Remove(gameObj);
+            Destroy(gameObj);
+        }
+
+        else if (_obstacles.Contains(gameObj))
+        {
+            ptsCount += 5;
+            _obstacles.Remove(gameObj);
+            _txtPoints.text = "Pts: " + ptsCount;
+            Destroy(gameObj);
+        }
     }
+    
 }
