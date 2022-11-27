@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 {
 
     public VehicleCrossGoal crossGoal;
-    
+
     public static GameManager instance;
 
     private float life = 100.0f;
@@ -98,6 +98,15 @@ public class GameManager : MonoBehaviour
             FinishLevel("YOU DIE");
             youWin = false;
         }
+    }
+
+    public void AddHeal()
+    {
+        if (life < 100.0f)
+        {
+            life = 100.0f;
+        }
+        
     }
     
     private void FinishLevel(string message)
