@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
         if (life < 100.0f)
         {
             life = 100.0f;
+            _lifebar.value = life;
         }
         
     }
