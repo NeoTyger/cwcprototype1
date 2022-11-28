@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
+    private CanonController _canonController;
+
     private float life = 100.0f;
     private int sceneLevel = 0;
     private bool youWin = false;
@@ -44,6 +46,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        _canonController = FindObjectOfType<CanonController>();
+        
         StartLevel();
         
         _enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
@@ -72,11 +76,6 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
-        if (_player != null)
-        {
-            crossGoal.OnTriggerEnter(_player.GetComponent<Collider>());
-        }
-        
         if (sceneLevel == 1 && youWin)
         {
             youWin = false;
@@ -124,6 +123,8 @@ public class GameManager : MonoBehaviour
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        _canonController.enabled = false;
             
         //Pausa
         Time.timeScale = 0;
@@ -133,7 +134,7 @@ public class GameManager : MonoBehaviour
     {
         if (_enemies.Contains(gameObj) )
         {
-            ptsCount += 10;
+            ptsCount += 100;
             _txtPoints.text = "Pts: " + ptsCount;
             _enemies.Remove(gameObj);
             Destroy(gameObj);
@@ -141,11 +142,17 @@ public class GameManager : MonoBehaviour
 
         else if (_obstacles.Contains(gameObj))
         {
-            ptsCount += 5;
+            ptsCount += 50;
             _obstacles.Remove(gameObj);
             _txtPoints.text = "Pts: " + ptsCount;
             Destroy(gameObj);
         }
+    }
+
+    public void Winner()
+    {
+        youWin = true;
+        FinishLevel(_txtWinner.text);
     }
     
 }

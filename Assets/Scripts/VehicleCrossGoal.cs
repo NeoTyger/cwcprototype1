@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class VehicleCrossGoal : MonoBehaviour
 {
+    private GameManager _gameManager;
     
-    public bool winner = false;
-    
+    private void Start()
+    {
+        _gameManager = FindObjectOfType<GameManager>();
+    }
+
     public void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.CompareTag("Player"))
         {
-            winner = true;
+            _gameManager.Winner();
         }
     }
 }
