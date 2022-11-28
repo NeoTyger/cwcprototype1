@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
 
     private void StartLevel()
     {
+        _canonController.enabled = true;
         youWin = false;
         _txtWinner.gameObject.SetActive(false);
         _btnOk.onClick.AddListener(GameOver);
@@ -79,6 +80,7 @@ public class GameManager : MonoBehaviour
         if (sceneLevel == 1 && youWin)
         {
             youWin = false;
+            _player.transform.position = new Vector3(0, 0, 0);
             PlayerPrefs.SetInt("level", 2);
             PlayerPrefs.Save();
             SceneManager.LoadScene("Level2");
