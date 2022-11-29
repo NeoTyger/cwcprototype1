@@ -17,13 +17,13 @@ public class GameManager : MonoBehaviour
     private CanonController _canonController;
 
     private float life = 100.0f;
-    private int sceneLevel = 0;
-    private bool youWin = false;
+    public int sceneLevel = 0;
+    public bool youWin = false;
     private int ptsCount = 0;
 
     [SerializeField] private TextMeshProUGUI _txtPoints;
-    [SerializeField] private TextMeshProUGUI _txtWinner;
-    [SerializeField] private Button _btnOk;
+    public TextMeshProUGUI _txtWinner;
+    public Button _btnOk;
     [SerializeField] private GameObject _player;
     [SerializeField] private Slider _lifebar;
 
@@ -47,35 +47,12 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _canonController = FindObjectOfType<CanonController>();
-        
-        StartLevel();
-        
+
         _enemies = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
         _obstacles = new List<GameObject>(GameObject.FindGameObjectsWithTag("Obstacle"));
     }
 
-    private void StartLevel()
-    {
-        _canonController.enabled = true;
-        youWin = false;
-        _txtWinner.gameObject.SetActive(false);
-        _btnOk.onClick.AddListener(GameOver);
-        _btnOk.gameObject.SetActive(false);
-        Time.timeScale = 1.0f;
-
-        if (!PlayerPrefs.HasKey("level"))
-        {
-            sceneLevel = 1;
-            PlayerPrefs.SetInt("level", sceneLevel);
-            PlayerPrefs.Save();
-        }
-        else
-        {
-            sceneLevel = PlayerPrefs.GetInt("level");
-        }
-    }
-
-    private void GameOver()
+    public void GameOver()
     {
         if (sceneLevel == 1 && youWin)
         {
@@ -91,7 +68,6 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.Save();
             SceneManager.LoadScene("Game Over");
         }
-        StartLevel();
     }
 
     public void AddDamage(float totalDamage)
@@ -127,7 +103,7 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
 
         _canonController.enabled = false;
-            
+
         //Pausa
         Time.timeScale = 0;
     }

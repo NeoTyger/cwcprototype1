@@ -7,6 +7,8 @@ using UnityEditor;
 
 public class GameOverManager : MonoBehaviour
 {
+    
+    private CanonController _canonController;
 
     [SerializeField] private Button _btnReturnMenu;
     [SerializeField] private Button _btnRestartLevel1;
