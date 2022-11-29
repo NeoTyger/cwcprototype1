@@ -14,3 +14,9 @@ Fallos:
 
 -Las opciones no conectan bien con loss valores dados.
 
+En progreso:
+
+-Scripts init en level1,2 y game over
+
+-Pasar game manager al main menu, el player también
+
